@@ -31,10 +31,19 @@ public class ChangeGravity : MonoBehaviour
     {
         if (!puedoSaltar && !saltando)
         {
-            miRigidbody2D.gravityScale = miRigidbody2D.gravityScale * -1;
+            miRigidbody2D.gravityScale *= -1;
+            Flip();
             miRigidbody2D.rotation += miRigidbody2D.gravityScale > 0 ? 180 : -180;
+
             saltando = true;
         }
+    }
+
+    private void Flip()
+    {
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
     }
 
     // Codigo ejecutado cuando el jugador colisiona con otro objeto
