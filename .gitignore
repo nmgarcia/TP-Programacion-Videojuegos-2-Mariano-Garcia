@@ -70,3 +70,122 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# =============== #
+# Unity generated #
+# =============== #
+
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+[Ss]treamingAssetsCopy/
+# Uncomment if needed:
+# [Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/
+
+# Avoid uploading large files or binaries
+[Dd]evices.xml
+[Dd]ebug/
+[Pp]ackages/manifest.json
+[Pp]ackages/packages-lock.json
+[Pp]rojectSettings/ProjectSettings.asset
+[Pp]rojectSettings/EditorBuildSettings.asset
+[Pp]rojectSettings/ProjectVersion.txt
+[Pp]rojectSettings/UnityConnectSettings.asset
+[Pp]rojectSettings/TimeManager.asset
+[Pp]rojectSettings/QualitySettings.asset
+[Pp]rojectSettings/InputManager.asset
+
+# Build artifacts
+*.apk
+*.unitypackage
+*.app
+*.aab
+*.exe
+*.app/
+*.xcodeproj/
+*.xcworkspace/
+*.xcuserstate
+*.xcuserdata/
+
+# Asset bundles
+[Aa]ssets/[Aa]sset[Bb]undles/
+
+# IDE and OS generated files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.userprefs
+*.csproj
+*.pidb
+*.sln
+*.user
+*.suo
+*.booproj
+*.svd
+*.pdb
+*.opendb
+*.VC.db
+*.DS_Store
+*.swp
+._*
+
+# =============== #
+# Unity-specific  #
+# =============== #
+# Exclude all meta files but keep versioned ones
+*.meta
+!Assets/**/*.meta
+
+# TextMesh Pro generated files
+[Tt]ext[Mm]esh[Pp]ro/Fonts/
+
+# Auto-generated VS/JetBrains Rider project files
+ExportedObj/
+.consulo/
+.idea/
+.vscode/
+.vscode/*.*
+
+# Mono auto generated files
+mono_crash.*
+*.pidb
+*.booproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.opendb
+*.VC.db
+
+# =============== #
+# Plugins-specific #
+# =============== #
+# Exclude the JetBrains Rider plugin folder
+[Uu]serSettings/Rider*
+
+# =============== #
+# Others #
+# =============== #
+# Asset Store tools and extensions
+*.cubemap
+*.cache
+*.ccache
+# Ignore crashes and databases
+.crash/
+*.db
+*.sqlite
+
+# Unity Cloud build
+UnityCloud/
+[Uu]ploadedBuilds/
