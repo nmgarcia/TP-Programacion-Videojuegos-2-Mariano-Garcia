@@ -8,6 +8,10 @@ public class ChangeGravity : MonoBehaviour
     // Variables de uso interno en el script
     private bool puedoSaltar = true;
     private bool saltando = false;
+    private Vector2 gravedad = Vector2.zero;
+    private bool invertirGravedad = false; 
+    private bool gravedadEnX = false;
+    public bool GetGravedadEnX => gravedadEnX;
 
     // Variable para referenciar otro componente del objeto
     private Rigidbody2D miRigidbody2D;
@@ -16,6 +20,7 @@ public class ChangeGravity : MonoBehaviour
     private void OnEnable()
     {
         miRigidbody2D = GetComponent<Rigidbody2D>();
+        miRigidbody2D.gravityScale = 0;
     }
 
     // Codigo ejecutado en cada frame del juego (Intervalo variable)
@@ -24,32 +29,64 @@ public class ChangeGravity : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && puedoSaltar)
         {
             puedoSaltar = false;
-        }
+            invertirGravedad = !invertirGravedad;
+        }        
     }
 
     private void FixedUpdate()
     {
         if (!puedoSaltar && !saltando)
         {
-            miRigidbody2D.gravityScale *= -1;
-            Flip();
-            miRigidbody2D.rotation += miRigidbody2D.gravityScale > 0 ? 180 : -180;
+            if (!gravedadEnX)
+            {
+                gravedad = new Vector2(0, -9.81f * (invertirGravedad?-1f:1f));
+                miRigidbody2D.SetRotation(invertirGravedad ? 180 : 0);
+                //FlipX();
+            }
+            else
+            {
+                gravedad = new Vector2(-9.81f * (invertirGravedad ? -1f : 1f), 0);
+                miRigidbody2D.SetRotation(invertirGravedad ? 90 : 270);
+            }
 
+            miRigidbody2D.velocity = gravedad;
             saltando = true;
         }
     }
 
-    private void Flip()
+    private void FlipX()
     {
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
     }
 
+    private void FlipY()
+    {
+        Vector3 scale = transform.localScale;
+        scale.y *= -1;
+        transform.localScale = scale;
+    }
+
     // Codigo ejecutado cuando el jugador colisiona con otro objeto
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        puedoSaltar = true;
-        saltando = false;
+        if (!puedoSaltar)
+        {
+            puedoSaltar = true;
+            saltando = false;
+        }
+    }
+
+    //Codigo ejecutado cuando colision con un objeto trigger
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Potion"))
+        {           
+            // Cambiar el eje de gravedad
+            gravedadEnX = !gravedadEnX;
+            saltando = false;
+            //miRigidbody2D.SetRotation(invertirGravedad?90:-90);
+        }
     }
 }

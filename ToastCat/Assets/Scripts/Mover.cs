@@ -14,21 +14,30 @@ public class Mover : MonoBehaviour
 
     // Variable para referenciar otro componente del objeto
     private Rigidbody2D miRigidbody2D;
+    private ChangeGravity changeGravity;
 
     // Codigo ejecutado cuando el objeto se activa en el nivel
     private void OnEnable()
     {
         miRigidbody2D = GetComponent<Rigidbody2D>();
+        changeGravity = GetComponent<ChangeGravity>();
     }
 
     // Codigo ejecutado en cada frame del juego (Intervalo variable)
     private void Update()
     {
         moverHorizontal = Input.GetAxis("Horizontal");
-        direccion = new Vector2(moverHorizontal, 0f);
+       
     }
     private void FixedUpdate()
     {
-       miRigidbody2D.velocity = new Vector2(direccion.x* (velocidad* Time.deltaTime),miRigidbody2D.velocity.y);
+        if (!changeGravity.GetGravedadEnX)
+        {
+            miRigidbody2D.velocity = new Vector2(moverHorizontal * (velocidad* Time.deltaTime), miRigidbody2D.velocity.y);
+        }
+        else
+        {
+            miRigidbody2D.velocity = new Vector2(miRigidbody2D.velocity.x, moverHorizontal * (velocidad * Time.deltaTime));
+        }
     }
 }
