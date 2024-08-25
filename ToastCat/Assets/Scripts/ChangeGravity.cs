@@ -11,6 +11,7 @@ public class ChangeGravity : MonoBehaviour
     private Vector2 gravedad = Vector2.zero;
     private bool invertirGravedad = false; 
     private bool gravedadEnX = false;
+    [SerializeField] private float velocidadGravedad = -9.8f;
     public bool GetGravedadEnX => gravedadEnX;
 
     // Variable para referenciar otro componente del objeto
@@ -39,13 +40,12 @@ public class ChangeGravity : MonoBehaviour
         {
             if (!gravedadEnX)
             {
-                gravedad = new Vector2(0, -9.81f * (invertirGravedad?-1f:1f));
+                gravedad = new Vector2(0, velocidadGravedad * (invertirGravedad?-1f:1f));
                 miRigidbody2D.SetRotation(invertirGravedad ? 180 : 0);
-                //FlipX();
             }
             else
             {
-                gravedad = new Vector2(-9.81f * (invertirGravedad ? -1f : 1f), 0);
+                gravedad = new Vector2(velocidadGravedad * (invertirGravedad ? -1f : 1f), 0);
                 miRigidbody2D.SetRotation(invertirGravedad ? 90 : 270);
             }
 
@@ -86,7 +86,6 @@ public class ChangeGravity : MonoBehaviour
             // Cambiar el eje de gravedad
             gravedadEnX = !gravedadEnX;
             saltando = false;
-            //miRigidbody2D.SetRotation(invertirGravedad?90:-90);
         }
     }
 }
