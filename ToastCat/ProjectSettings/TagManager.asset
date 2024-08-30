@@ -14,8 +14,8 @@ TagManager:
   - Water
   - UI
   - Potion
-  - 
-  - 
+  - Background
+  - Player
   - 
   - 
   - 
@@ -42,4 +42,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 1828267957
+    locked: 0
+  - name: Environment
+    uniqueID: 2832188551
+    locked: 0
+  - name: Player
+    uniqueID: 991978701
+    locked: 0
+  - name: Potion
+    uniqueID: 3667281181
+    locked: 0
+  - name: UI
+    uniqueID: 2633285689
     locked: 0

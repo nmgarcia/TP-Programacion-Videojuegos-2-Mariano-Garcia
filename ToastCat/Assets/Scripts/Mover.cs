@@ -27,17 +27,27 @@ public class Mover : MonoBehaviour
     private void Update()
     {
         moverHorizontal = Input.GetAxis("Horizontal");
-       
+
+        if (moverHorizontal != 0)
+            FlipX();
     }
+
+    private void FlipX()
+    {
+        Vector3 scale = transform.localScale;
+        scale.x = moverHorizontal > 0 ? 1 : -1;
+        transform.localScale = scale;
+    }
+
     private void FixedUpdate()
     {
         if (!changeGravity.GetGravedadEnX)
         {
-            miRigidbody2D.velocity = new Vector2(moverHorizontal * (velocidad* Time.deltaTime), miRigidbody2D.velocity.y);
+            miRigidbody2D.velocity = new Vector2(moverHorizontal *(changeGravity.GetInvertirGravedad?-1:1) * (velocidad* Time.deltaTime), miRigidbody2D.velocity.y);
         }
         else
         {
-            miRigidbody2D.velocity = new Vector2(miRigidbody2D.velocity.x, moverHorizontal * (velocidad * Time.deltaTime));
+            miRigidbody2D.velocity = new Vector2(miRigidbody2D.velocity.x, moverHorizontal * (changeGravity.GetInvertirGravedad ? 1 : -1) * (velocidad * Time.deltaTime));
         }
     }
 }

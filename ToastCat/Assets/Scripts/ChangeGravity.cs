@@ -13,6 +13,7 @@ public class ChangeGravity : MonoBehaviour
     private bool gravedadEnX = false;
     [SerializeField] private float velocidadGravedad = -9.8f;
     public bool GetGravedadEnX => gravedadEnX;
+    public bool GetInvertirGravedad => invertirGravedad;
 
     // Variable para referenciar otro componente del objeto
     private Rigidbody2D miRigidbody2D;
@@ -52,13 +53,6 @@ public class ChangeGravity : MonoBehaviour
             miRigidbody2D.velocity = gravedad;
             saltando = true;
         }
-    }
-
-    private void FlipX()
-    {
-        Vector3 scale = transform.localScale;
-        scale.x *= -1;
-        transform.localScale = scale;
     }
 
     private void FlipY()
