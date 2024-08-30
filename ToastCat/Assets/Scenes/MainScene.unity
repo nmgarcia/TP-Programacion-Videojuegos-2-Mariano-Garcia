@@ -1470,7 +1470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1069035bbd0729a419426a98dd7b2739, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  openSprite: {fileID: 0}
+  openSprite: {fileID: -209122895, guid: b69728c763e7ddd4286572e41194659c, type: 3}
 --- !u!1 &1999914837
 GameObject:
   m_ObjectHideFlags: 0
