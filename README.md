@@ -20,8 +20,8 @@ Puedes jugar a **ToastCat** en tu navegador a través de Itch.io:
 ## Controles
 
 - **[Flechas del teclado]:** Movimiento horizontal o vertical
-- **[Barra espaciadora]:**Invierte la gravedad de Daisy
-- **[Atraviesa el orbe]:**De esta manera cambiaras el eje de la gravedad
+- **[Barra espaciadora]:** Invierte la gravedad de Daisy
+- **[Atraviesa el orbe]:** De esta manera cambiaras el eje de la gravedad
 
 ## Capturas de Pantalla
 
