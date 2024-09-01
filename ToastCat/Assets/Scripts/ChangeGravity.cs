@@ -7,11 +7,11 @@ public class ChangeGravity : MonoBehaviour
 
     // Variables de uso interno en el script
     private bool puedoSaltar = true;
-    private bool saltando = false;
+    [SerializeField] private bool saltando = false;
     private Vector2 gravedad = Vector2.zero;
     private bool invertirGravedad = false; 
     private bool gravedadEnX = false;
-    [SerializeField] private float velocidadGravedad = -9.8f;
+    [SerializeField] private float velocidadGravedad = -5f;
     public bool GetGravedadEnX => gravedadEnX;
     public bool GetInvertirGravedad => invertirGravedad;
 
@@ -49,27 +49,33 @@ public class ChangeGravity : MonoBehaviour
                 gravedad = new Vector2(velocidadGravedad * (invertirGravedad ? -1f : 1f), 0);
                 miRigidbody2D.SetRotation(invertirGravedad ? 90 : 270);
             }
-
+            
             miRigidbody2D.velocity = gravedad;
             saltando = true;
         }
-    }
 
-    private void FlipY()
-    {
-        Vector3 scale = transform.localScale;
-        scale.y *= -1;
-        transform.localScale = scale;
     }
 
     // Codigo ejecutado cuando el jugador colisiona con otro objeto
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!puedoSaltar)
+        if (collision.gameObject.CompareTag("Environment"))
         {
-            puedoSaltar = true;
-            saltando = false;
+            // Obtener las rotaciones para verificar que solo colisione con environment en la misma direccion
+            var a = collision.gameObject.GetComponent<Rigidbody2D>().rotation;
+            var b = GetComponent<Rigidbody2D>().rotation;
+
+            if (CommonHelper.CheckCollisionDirection(a, b) && !puedoSaltar)
+            {
+                puedoSaltar = true;
+                saltando = false;
+            }
         }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        miRigidbody2D.velocity = gravedad;
     }
 
     //Codigo ejecutado cuando colision con un objeto trigger

@@ -13,19 +13,13 @@ public class Checkpoint : MonoBehaviour
             var a = collision.GetComponent<Rigidbody2D>().rotation;
             var b = GetComponent<Rigidbody2D>().rotation;
 
-            // Normalizar los ángulos
-            a = Mathf.Repeat(a, 360f);
-            b = Mathf.Repeat(b, 360f);
-
-            // Comparar las rotaciones normalizadas usando DeltaAngle
-            if (Mathf.Abs(Mathf.DeltaAngle(a, b)) < 0.01f)
+            // Comparar las rotaciones normalizadas usando un helper comun
+            if (CommonHelper.CheckCollisionDirection(a,b))
             {
                 SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 
                 spriteRenderer.sprite = openSprite;
-            }
-            
-
+            }         
         }
     }
 }
