@@ -74,5 +74,8 @@ public class Mover : MonoBehaviour
         
         if(!changeGravity.GetSaltando)
             animator.SetInteger("Velocidad", velocidadAnimation);
+        
+        animator.SetBool("Saltando", changeGravity.GetSaltando);
+        
     }
 }

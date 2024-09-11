@@ -15,6 +15,7 @@ public class ChangeGravity : MonoBehaviour
     public bool GetGravedadEnX => gravedadEnX;
     public bool GetInvertirGravedad => invertirGravedad;
     public bool GetSaltando => saltando;
+    private Animator animator;
 
     // Variable para referenciar otro componente del objeto
     private Rigidbody2D miRigidbody2D;
@@ -24,6 +25,7 @@ public class ChangeGravity : MonoBehaviour
     {
         miRigidbody2D = GetComponent<Rigidbody2D>();
         miRigidbody2D.gravityScale = 0;
+        animator = GetComponent<Animator>();
     }
 
     // Codigo ejecutado en cada frame del juego (Intervalo variable)
@@ -52,6 +54,7 @@ public class ChangeGravity : MonoBehaviour
             }
             
             miRigidbody2D.velocity = gravedad;
+            animator.SetBool("Saltando", gravedad!=Vector2.zero);
             saltando = true;
         }
 
