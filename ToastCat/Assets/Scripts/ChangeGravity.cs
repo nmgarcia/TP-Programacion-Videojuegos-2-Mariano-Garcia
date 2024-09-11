@@ -14,6 +14,7 @@ public class ChangeGravity : MonoBehaviour
     [SerializeField] private float velocidadGravedad = -5f;
     public bool GetGravedadEnX => gravedadEnX;
     public bool GetInvertirGravedad => invertirGravedad;
+    public bool GetSaltando => saltando;
 
     // Variable para referenciar otro componente del objeto
     private Rigidbody2D miRigidbody2D;
