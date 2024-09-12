@@ -6,7 +6,7 @@ public class Mover : MonoBehaviour
 {
     // Variables a configurar desde el editor
     [Header("Configuracion")]
-    [SerializeField] float velocidad = 5f;
+    [SerializeField] float velocidad = 100f;
 
     // Variables de uso interno en el script
     private float moverHorizontal;
@@ -18,6 +18,7 @@ public class Mover : MonoBehaviour
     private ChangeGravity changeGravity;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
+    
 
     // Codigo ejecutado cuando el objeto se activa en el nivel
     private void OnEnable()

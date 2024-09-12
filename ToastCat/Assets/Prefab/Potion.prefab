@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2395767669613018995}
   - component: {fileID: 6079684700632740818}
   - component: {fileID: 6170748814983497530}
-  - component: {fileID: 4952002482764316323}
   m_Layer: 6
   m_Name: Potion
   m_TagString: Potion
@@ -121,15 +120,3 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.3093339
---- !u!122 &4952002482764316323
-Halo:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3696626177256795092}
-  m_Enabled: 1
-  m_Color:
-    serializedVersion: 2
-    rgba: 4286611584
-  m_Size: 10
