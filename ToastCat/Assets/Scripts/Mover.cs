@@ -6,7 +6,7 @@ public class Mover : MonoBehaviour
 {
     // Variables a configurar desde el editor
     [Header("Configuracion")]
-    [SerializeField] float velocidad = 5f;
+    [SerializeField] float velocidad = 100f;
 
     // Variables de uso interno en el script
     private float moverHorizontal;
@@ -17,6 +17,8 @@ public class Mover : MonoBehaviour
     private Rigidbody2D miRigidbody2D;
     private ChangeGravity changeGravity;
     private SpriteRenderer spriteRenderer;
+    private Animator animator;
+    
 
     // Codigo ejecutado cuando el objeto se activa en el nivel
     private void OnEnable()
@@ -24,6 +26,7 @@ public class Mover : MonoBehaviour
         miRigidbody2D = GetComponent<Rigidbody2D>();
         changeGravity = GetComponent<ChangeGravity>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
 
     // Codigo ejecutado en cada frame del juego (Intervalo variable)
@@ -32,8 +35,11 @@ public class Mover : MonoBehaviour
         moverHorizontal = Input.GetAxis("Horizontal");
         moverVertical = Input.GetAxis("Vertical");
 
-        if (moverHorizontal != 0 || moverVertical != 0)            
-            FlipX();
+        if (moverHorizontal != 0 || moverVertical != 0)
+        {
+            FlipX();            
+        }            
+            
     }
 
     private void FlipX()
@@ -48,20 +54,29 @@ public class Mover : MonoBehaviour
         // Actualizar el scale.x solo si hay movimiento
         if (input != 0)
         {
-            spriteRenderer.flipX = (Mathf.Sign(input) * direction)<0;            
+            spriteRenderer.flipX = (Mathf.Sign(input) * direction) < 0;            
         }
     }
 
     private void FixedUpdate()
     {
+        int velocidadAnimation = 0;
         //Verificamos si la gravedad esta en X para definir como realizar el avance
         if (!changeGravity.GetGravedadEnX)
         {
-            miRigidbody2D.velocity = new Vector2(moverHorizontal  * (velocidad* Time.deltaTime), miRigidbody2D.velocity.y);
+            miRigidbody2D.velocity = new Vector2( moverHorizontal  * (velocidad* Time.deltaTime), miRigidbody2D.velocity.y);
+            velocidadAnimation = moverHorizontal != 0 ? 1 : 0;
         }
         else
         {
-            miRigidbody2D.velocity = new Vector2(miRigidbody2D.velocity.x, moverVertical  * (velocidad * Time.deltaTime));
+            miRigidbody2D.velocity = new Vector2( miRigidbody2D.velocity.x, moverVertical  * (velocidad * Time.deltaTime));
+            velocidadAnimation = moverVertical != 0 ? 1 : 0;
         }
+        
+        if(!changeGravity.GetSaltando)
+            animator.SetInteger("Velocidad", velocidadAnimation);
+        
+        animator.SetBool("Saltando", changeGravity.GetSaltando);
+        
     }
 }

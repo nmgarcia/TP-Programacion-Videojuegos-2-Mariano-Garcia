@@ -14,15 +14,21 @@ public class ChangeGravity : MonoBehaviour
     [SerializeField] private float velocidadGravedad = -5f;
     public bool GetGravedadEnX => gravedadEnX;
     public bool GetInvertirGravedad => invertirGravedad;
+    public bool GetSaltando => saltando;
+    private Animator animator;
+    [SerializeField] private AudioClip jumpSFX;
 
     // Variable para referenciar otro componente del objeto
     private Rigidbody2D miRigidbody2D;
+    private AudioSource audioSource;
 
     // Codigo ejecutado cuando el objeto se activa en el nivel
     private void OnEnable()
     {
         miRigidbody2D = GetComponent<Rigidbody2D>();
         miRigidbody2D.gravityScale = 0;
+        animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Codigo ejecutado en cada frame del juego (Intervalo variable)
@@ -32,6 +38,8 @@ public class ChangeGravity : MonoBehaviour
         {
             puedoSaltar = false;
             invertirGravedad = !invertirGravedad;
+            if (!audioSource.isPlaying)
+                audioSource.PlayOneShot(jumpSFX);
         }        
     }
 
@@ -51,6 +59,7 @@ public class ChangeGravity : MonoBehaviour
             }
             
             miRigidbody2D.velocity = gravedad;
+            animator.SetBool("Saltando", gravedad!=Vector2.zero);
             saltando = true;
         }
 

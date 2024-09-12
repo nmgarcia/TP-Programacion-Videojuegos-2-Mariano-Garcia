@@ -5,6 +5,15 @@ using UnityEngine;
 public class Checkpoint : MonoBehaviour
 {
     [SerializeField] private Sprite openSprite;
+
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip winClip;
+    private bool win = false;
+
+    private void OnEnable()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -19,6 +28,10 @@ public class Checkpoint : MonoBehaviour
                 SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 
                 spriteRenderer.sprite = openSprite;
+                win = true;
+
+                if (!audioSource.isPlaying && !win)
+                    audioSource.PlayOneShot(winClip);
             }         
         }
     }
