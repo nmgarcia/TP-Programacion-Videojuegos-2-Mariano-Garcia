@@ -70,14 +70,24 @@ public class ChangeGravity : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Environment"))
         {
-            // Obtener las rotaciones para verificar que solo colisione con environment en la misma direccion
-            var a = collision.gameObject.GetComponent<Rigidbody2D>().rotation;
-            var b = GetComponent<Rigidbody2D>().rotation;
-
-            if (CommonHelper.CheckCollisionDirection(a, b) && !puedoSaltar)
+            // Obtener la normal de la colisión para determinar si es un aterrizaje adecuado
+            Vector2 collisionNormal = collision.contacts[0].normal;
+            
+            if (!gravedadEnX)
             {
-                puedoSaltar = true;
-                saltando = false;
+                if (collisionNormal == Vector2.up && !puedoSaltar)
+                {
+                    puedoSaltar = true;
+                    saltando = false;
+                }
+            }
+            else
+            {
+                if ((collisionNormal == Vector2.left || collisionNormal == Vector2.right) && !puedoSaltar)
+                {
+                    puedoSaltar = true;
+                    saltando = false;
+                }
             }
         }
     }
