@@ -9,6 +9,7 @@ public class Checkpoint : MonoBehaviour
     private AudioSource audioSource;
     [SerializeField] private AudioClip winClip;
     private bool win = false;
+    public bool GetWincondition => win;
 
     private void OnEnable()
     {

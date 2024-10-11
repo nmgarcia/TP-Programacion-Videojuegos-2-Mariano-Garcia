@@ -18,7 +18,9 @@ public class Mover : MonoBehaviour
     private ChangeGravity changeGravity;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
-    
+
+    private bool movementEnabled = true;
+
 
     // Codigo ejecutado cuando el objeto se activa en el nivel
     private void OnEnable()
@@ -32,13 +34,14 @@ public class Mover : MonoBehaviour
     // Codigo ejecutado en cada frame del juego (Intervalo variable)
     private void Update()
     {
+        
         moverHorizontal = Input.GetAxis("Horizontal");
         moverVertical = Input.GetAxis("Vertical");
 
         if (moverHorizontal != 0 || moverVertical != 0)
         {
             FlipX();            
-        }            
+        }
             
     }
 

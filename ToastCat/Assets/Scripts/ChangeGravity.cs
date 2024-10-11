@@ -75,7 +75,7 @@ public class ChangeGravity : MonoBehaviour
             
             if (!gravedadEnX)
             {
-                if (collisionNormal == Vector2.up && !puedoSaltar)
+                if ((collisionNormal == Vector2.up || collisionNormal == Vector2.down) && !puedoSaltar)
                 {
                     puedoSaltar = true;
                     saltando = false;
