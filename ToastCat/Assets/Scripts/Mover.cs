@@ -11,16 +11,12 @@ public class Mover : MonoBehaviour
     // Variables de uso interno en el script
     private float moverHorizontal;
     private float moverVertical;
-    private Vector2 direccion;
 
     // Variable para referenciar otro componente del objeto
     private Rigidbody2D miRigidbody2D;
     private ChangeGravity changeGravity;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
-
-    private bool movementEnabled = true;
-
 
     // Codigo ejecutado cuando el objeto se activa en el nivel
     private void OnEnable()
@@ -33,11 +29,7 @@ public class Mover : MonoBehaviour
 
     // Codigo ejecutado en cada frame del juego (Intervalo variable)
     private void Update()
-    {
-        
-        moverHorizontal = Input.GetAxis("Horizontal");
-        moverVertical = Input.GetAxis("Vertical");
-
+    {   
         if (moverHorizontal != 0 || moverVertical != 0)
         {
             FlipX();            
@@ -45,9 +37,14 @@ public class Mover : MonoBehaviour
             
     }
 
-    private void FlipX()
+    public void SetMovement(float horizontal, float vertical)
     {
-       
+        moverHorizontal = horizontal;
+        moverVertical = vertical;
+    }
+
+    private void FlipX()
+    {       
         // Determinar el input basado en la gravedad
         float input = changeGravity.GetGravedadEnX ? moverVertical : moverHorizontal;
 

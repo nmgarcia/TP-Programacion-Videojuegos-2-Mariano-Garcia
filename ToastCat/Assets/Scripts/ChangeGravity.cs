@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -106,5 +107,15 @@ public class ChangeGravity : MonoBehaviour
             gravedadEnX = !gravedadEnX;
             saltando = false;
         }
+    }
+
+    internal void ResetGravity()
+    {
+        puedoSaltar = true;
+        saltando = false;
+        gravedad = Vector2.zero;
+        invertirGravedad = false;
+        gravedadEnX = false;
+        miRigidbody2D.SetRotation(0);
     }
 }

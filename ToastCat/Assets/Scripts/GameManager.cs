@@ -8,17 +8,19 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private GameManager Instance;
-    [SerializeField] private GameObject player;
+    private static GameManager instance;
+    [SerializeField] private Player player;
     [SerializeField] private Vector2 playerPosition;
     [SerializeField] private Checkpoint checkpoint;
     [SerializeField] private GameObject winText;
 
+    public static GameManager Instance => instance;
+
     private void Awake()
     {
-        if (Instance == null)
+        if (instance == null)
         {
-            Instance = this;
+            instance = this;
             DontDestroyOnLoad(gameObject); 
         }
         else
@@ -30,13 +32,6 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         player.transform.position = playerPosition;
-    }
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame
@@ -52,7 +47,11 @@ public class GameManager : MonoBehaviour
 
     private void DisableMovement()
     {
-        player.GetComponent<ChangeGravity>().enabled = false;
         player.GetComponent<Mover>().enabled = false;
+        player.GetComponent<ChangeGravity>().enabled = false;
+    }
+    public void ResetPlayerPosition(GameObject player)
+    {
+        player.transform.position = playerPosition;
     }
 }
