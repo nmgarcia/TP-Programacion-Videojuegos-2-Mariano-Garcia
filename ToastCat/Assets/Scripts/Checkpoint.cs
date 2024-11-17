@@ -8,8 +8,7 @@ public class Checkpoint : MonoBehaviour
 
     private AudioSource audioSource;
     [SerializeField] private AudioClip winClip;
-    private bool win = false;
-    public bool GetWincondition => win;
+
 
     private void OnEnable()
     {
@@ -24,14 +23,18 @@ public class Checkpoint : MonoBehaviour
             var b = GetComponent<Rigidbody2D>().rotation;
 
             // Comparar las rotaciones normalizadas usando un helper comun
-            if (CommonHelper.CheckCollisionDirection(a,b))
+            if (CommonHelper.CheckCollisionDirection(a,b) &&
+                StateManager.Instance.GetCurrentState != GameStateEnum.GameOver &&
+                StateManager.Instance.GetCurrentState != GameStateEnum.ChangeLevel)
             {
                 SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 
                 spriteRenderer.sprite = openSprite;
-                win = true;
 
-                if (!audioSource.isPlaying && !win)
+                
+                StateManager.Instance.ChangeState(GameStateEnum.ChangeLevel);
+
+                if (!audioSource.isPlaying )
                     audioSource.PlayOneShot(winClip);
             }         
         }

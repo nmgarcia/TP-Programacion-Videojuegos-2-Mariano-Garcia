@@ -1,18 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using static Cinemachine.DocumentationSortingAttribute;
 
 public class GameManager : MonoBehaviour
 {
     private GameManager Instance;
     [SerializeField] private GameObject player;
     [SerializeField] private Vector2 playerPosition;
-    [SerializeField] private Checkpoint checkpoint;
-    [SerializeField] private GameObject winText;
+    [SerializeField] private ChangeGravity changeGravity;
 
     private void Awake()
     {
@@ -29,30 +30,36 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        player.transform.position = playerPosition;
+        StateManager.Instance.OnStateChanged += HandleStateChange;
     }
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void HandleStateChange(GameStateEnum newState)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (checkpoint.GetWincondition)
-        {
-            player.GetComponent<Animator>().SetBool("Win",true);
-            DisableMovement();
-            winText.SetActive(true);
+        switch (newState) {
+            case GameStateEnum.GameOver:                
+                player.GetComponent<Animator>().SetBool("Win", true);
+                DisableMovement();
+                break;
         }
     }
-
+    
     private void DisableMovement()
     {
         player.GetComponent<ChangeGravity>().enabled = false;
         player.GetComponent<Mover>().enabled = false;
+
+        
+    }
+    public void ResetPlayerPosition(GameObject player)
+    {
+        player.transform.position = playerPosition;
+
+    }
+
+    public void SetPlayerSettings(LevelData levelData)
+    {
+        player.transform.localScale = new Vector3(levelData.PlayerScale, levelData.PlayerScale, 0);
+        player.transform.position = playerPosition = levelData.PlayerPosition;
+        changeGravity.ResetGravity();
     }
 }
