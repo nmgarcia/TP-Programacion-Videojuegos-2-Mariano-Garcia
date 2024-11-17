@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class SpawnObject : MonoBehaviour
 {
-    [SerializeField] private SpikedBall spawnObject; //El objeto debe tener su propio comportamiento de movimiento y desaparicion
-    
+    [SerializeField] private ObjectPool objectPool;
     [SerializeField]
     [Range(0.5f, 5.0f)]
     private float tiempoEspera;
@@ -14,8 +13,7 @@ public class SpawnObject : MonoBehaviour
     [Range(0.5f, 5.0f)]
     private float tiempoIntervalo;
 
-    [SerializeField] private bool habilitarInstantiate = true; //Para controlar el invoke
-    [SerializeField] private Vector3 direccionObjeto = Vector3.up;
+    [SerializeField] private bool habilitarSpawn = true; 
 
     private void OnEnable()
     {
@@ -29,11 +27,16 @@ public class SpawnObject : MonoBehaviour
 
     void SpawnGameObject()
     {
-        if (habilitarInstantiate)
+        if (habilitarSpawn)
         {
-            SpikedBall nuevoObjeto = Instantiate(spawnObject, transform.position, Quaternion.identity);
-            nuevoObjeto.SetDirection(direccionObjeto);
+            GameObject obj = objectPool.GetPooledObject();
+            if (obj != null)
+            {
+                // Reutilizamos el objeto del pool
+                obj.transform.position = transform.position;
+                obj.transform.rotation = Quaternion.identity;
+                obj.SetActive(true);
+            }
         }
-           
     }
 }

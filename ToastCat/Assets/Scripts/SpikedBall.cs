@@ -16,7 +16,7 @@ public class SpikedBall : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Environment"))
-            Destroy(gameObject);
+            gameObject.SetActive(false);
     }
 
     public void SetDirection(Vector3 vector)

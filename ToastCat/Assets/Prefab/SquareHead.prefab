@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7095588117867634069}
   - component: {fileID: 4108823168179189300}
   - component: {fileID: 5681038083182109043}
+  - component: {fileID: 7817288611814765968}
   m_Layer: 3
   m_Name: SquareHead
   m_TagString: Enemy
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7831354536561427188}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.6679916, y: 2.2473164, z: 0.036379647}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0}
   m_ConstrainProportionsScale: 0
@@ -98,10 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66f41f5ef344b804fbe24e627be50ecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnObject: {fileID: 5380691350931582032, guid: 73cd60e2efa99984c8344942954839d3, type: 3}
+  objectPool: {fileID: 7817288611814765968}
   tiempoEspera: 1
   tiempoIntervalo: 4
-  habilitarInstantiate: 1
+  habilitarSpawn: 1
 --- !u!61 &5681038083182109043
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -147,3 +148,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.625, y: 2.625}
   m_EdgeRadius: 0
+--- !u!114 &7817288611814765968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7831354536561427188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db421ce5d0048d64bb94fbbe0ed44672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectPrefab: {fileID: 5380691350931582032, guid: 73cd60e2efa99984c8344942954839d3, type: 3}
+  poolSize: 2
+  direccionObjeto: {x: 0, y: 1, z: 0}

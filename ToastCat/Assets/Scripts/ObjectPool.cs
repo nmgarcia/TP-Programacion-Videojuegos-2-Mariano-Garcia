@@ -4,45 +4,39 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-    [SerializeField] private SpikedBall prefab; // Prefab de SpikeBall.
-    [SerializeField] private int poolSize = 1; // Tamaño inicial del pool.
+    [SerializeField] private GameObject objectPrefab;
+    [SerializeField] private int poolSize = 2;
+    [SerializeField] private Vector3 direccionObjeto = Vector3.up;
 
-    private Queue<SpikedBall> pool = new Queue<SpikedBall>();
+    private List<GameObject> pooledObjects;
 
-    // Inicializar el pool
-    private void Awake()
+    void Start()
     {
+        pooledObjects = new List<GameObject>();
+
         for (int i = 0; i < poolSize; i++)
         {
-            SpikedBall obj = Instantiate(prefab);
-            obj.gameObject.SetActive(false); // Desactivar al principio.
-            pool.Enqueue(obj);
+            GameObject obj = Instantiate(objectPrefab);
+            
+            if (obj != null)
+            {
+                obj.GetComponent<SpikedBall>().SetDirection(direccionObjeto);
+            }
+            obj.SetActive(false);
+            pooledObjects.Add(obj);
         }
     }
 
-    // Obtener un objeto del pool
-    public SpikedBall GetObject(Vector3 position, Quaternion rotation)
+    public GameObject GetPooledObject()
     {
-        if (pool.Count > 0)
+        foreach (GameObject obj in pooledObjects)
         {
-            SpikedBall obj = pool.Dequeue();
-            obj.transform.position = position;
-            obj.transform.rotation = rotation;
-            obj.gameObject.SetActive(true);
-            return obj;
+            if (!obj.activeInHierarchy)
+            {
+                return obj;
+            }
         }
-        else
-        {
-            // Expandir el pool si está vacío.
-            SpikedBall obj = Instantiate(prefab, position, rotation);
-            return obj;
-        }
-    }
 
-    // Devolver un objeto al pool
-    public void ReturnObject(SpikedBall obj)
-    {
-        obj.gameObject.SetActive(false);
-        pool.Enqueue(obj);
+        return null;
     }
 }

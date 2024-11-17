@@ -560,10 +560,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camara: {fileID: 519420031}
-  nocheColor: {r: 0.3584906, g: 0.21219285, b: 0.023673857, a: 0}
+  nocheColor:
+    r: 0.3584906
+    g: 0.21219285
+    b: 0.023673857
+    a: 0
   luz2D: {fileID: 619394801}
   duracionDia: 11
   dias: 24
+  diaColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
 --- !u!1 &385729071
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,6 +936,10 @@ PrefabInstance:
     - target: {fileID: 5681038083182109043, guid: 6e7319c59a8e9f243bba8cdeb1b7e611, type: 3}
       propertyPath: m_Offset.y
       value: -0.0106527805
+      objectReference: {fileID: 0}
+    - target: {fileID: 7817288611814765968, guid: 6e7319c59a8e9f243bba8cdeb1b7e611, type: 3}
+      propertyPath: direccionObjeto.y
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7831354536561427188, guid: 6e7319c59a8e9f243bba8cdeb1b7e611, type: 3}
       propertyPath: m_Name
@@ -4097,10 +4110,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camara: {fileID: 519420031}
-  nocheColor: {r: 0.3584906, g: 0.21219285, b: 0.023673857, a: 0}
+  nocheColor:
+    r: 0.3584906
+    g: 0.21219285
+    b: 0.023673857
+    a: 0
   luz2D: {fileID: 619394801}
   duracionDia: 11
   dias: 24
+  diaColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
 --- !u!1 &1304585588
 GameObject:
   m_ObjectHideFlags: 0
@@ -5614,6 +5636,10 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: -0.0106527805
       objectReference: {fileID: 0}
+    - target: {fileID: 7817288611814765968, guid: 6e7319c59a8e9f243bba8cdeb1b7e611, type: 3}
+      propertyPath: direccionObjeto.y
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 7831354536561427188, guid: 6e7319c59a8e9f243bba8cdeb1b7e611, type: 3}
       propertyPath: m_Name
       value: SquareHead (2)
@@ -5964,10 +5990,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camara: {fileID: 519420031}
-  nocheColor: {r: 0.3584906, g: 0.21219285, b: 0.023673857, a: 0}
+  nocheColor:
+    r: 0.3584906
+    g: 0.21219285
+    b: 0.023673857
+    a: 0
   luz2D: {fileID: 619394801}
   duracionDia: 11
   dias: 24
+  diaColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
 --- !u!1001 &1773173796
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7927,10 +7962,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camara: {fileID: 519420031}
-  nocheColor: {r: 0.3584906, g: 0.21219285, b: 0.023673857, a: 0}
+  nocheColor:
+    r: 0.3584906
+    g: 0.21219285
+    b: 0.023673857
+    a: 0
   luz2D: {fileID: 619394801}
   duracionDia: 11
   dias: 24
+  diaColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
 --- !u!4 &1999914840 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2395767669613018995, guid: 6dc25a334fac6fd48aa52fa2fa6d2a95, type: 3}
@@ -8518,10 +8562,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 624248015}
     m_Modifications:
-    - target: {fileID: 4108823168179189300, guid: 6e7319c59a8e9f243bba8cdeb1b7e611, type: 3}
-      propertyPath: spawnObject
-      value: 
-      objectReference: {fileID: 6012885745158081688, guid: 73cd60e2efa99984c8344942954839d3, type: 3}
     - target: {fileID: 5169408798992202440, guid: 6e7319c59a8e9f243bba8cdeb1b7e611, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.6679916
