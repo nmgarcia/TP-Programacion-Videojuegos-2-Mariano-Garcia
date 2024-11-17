@@ -10,16 +10,18 @@ using static Cinemachine.DocumentationSortingAttribute;
 
 public class GameManager : MonoBehaviour
 {
-    private GameManager Instance;
-    [SerializeField] private GameObject player;
+    private static GameManager instance;
+    [SerializeField] private Player player;
     [SerializeField] private Vector2 playerPosition;
     [SerializeField] private ChangeGravity changeGravity;
 
+    public static GameManager Instance => instance;
+
     private void Awake()
     {
-        if (Instance == null)
+        if (instance == null)
         {
-            Instance = this;
+            instance = this;
             DontDestroyOnLoad(gameObject); 
         }
         else
@@ -45,6 +47,7 @@ public class GameManager : MonoBehaviour
     
     private void DisableMovement()
     {
+        player.GetComponent<Mover>().enabled = false;
         player.GetComponent<ChangeGravity>().enabled = false;
         player.GetComponent<Mover>().enabled = false;
 

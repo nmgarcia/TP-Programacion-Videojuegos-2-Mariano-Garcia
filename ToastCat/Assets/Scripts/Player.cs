@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
 
     private float moverHorizontal;
     private float moverVertical;
+
     private bool playerMovementIsEnabled = true;
 
     private void OnEnable()
@@ -27,7 +28,7 @@ public class Player : MonoBehaviour
             case GameStateEnum.GameOver:
                 DisableMovement();
                 break;
-        }
+    }
     }
 
     private void DisableMovement()
