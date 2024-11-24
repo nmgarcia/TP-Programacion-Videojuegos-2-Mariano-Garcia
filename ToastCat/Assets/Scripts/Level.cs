@@ -13,7 +13,7 @@ public class Level : MonoBehaviour
 
     private void OnEnable()
     {
-        StateManager.Instance.ChangeState(GameStateEnum.Playing);
+        //StateManager.Instance.ChangeState(GameStateEnum.Playing);
         isActive = true;
     }
     private void OnDisable()

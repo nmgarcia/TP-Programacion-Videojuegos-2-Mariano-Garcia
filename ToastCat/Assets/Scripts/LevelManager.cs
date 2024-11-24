@@ -3,14 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; private set; }
 
     [SerializeField] private int currentLevelIndex = 0;
-    [SerializeField] private List<GameObject> levels;
+    [SerializeField] private List<string> levels;
     [SerializeField] private LevelData currentLevelData;
+    [SerializeField] private string currentlyLoadedScene;
     public LevelData GetCurrentLevelData => currentLevelData;
     
     private void Awake()
@@ -37,53 +39,93 @@ public class LevelManager : MonoBehaviour
         {
             case GameStateEnum.LevelMenu:
             case GameStateEnum.MainMenu:
-                DisableAllLevels();
                 currentLevelIndex = 0;
                 break;
 
-            case GameStateEnum.ChangeLevel:                
+            case GameStateEnum.ChangeLevel:
                 LoadNextLevel();
                 break;
 
             case GameStateEnum.Playing:
-                currentLevelData = levels.First(x => x.activeSelf).GetComponent<Level>().GetLevelData;
-                currentLevelIndex = currentLevelData.Index;
-                levels[currentLevelIndex].gameObject.SetActive(true);
-               
-                GameManager.Instance.SetPlayerSettings(currentLevelData);
-                StateManager.Instance.ChangeState(GameStateEnum.Playing);
+                LoadLevel(currentLevelIndex);
                 break;
         }
     }
 
-    private void DisableAllLevels()
+    public void LoadLevel(int levelIndex)
     {
-        foreach (var level in levels)        
-            level.gameObject.SetActive(false);
+        if (levelIndex < 0 || levelIndex >= levels.Count)
+        {
+            Debug.LogError($"Level index {levelIndex} is out of range!");
+            return;
+        }
+
+        // Cargar la escena del nivel
+        StartCoroutine(LoadLevelCoroutine(levels[levelIndex]));
     }
 
-    public void EnableLevel(int levelIndex)
+    private IEnumerator LoadLevelCoroutine(string sceneName)
     {
-        levels[levelIndex].gameObject.SetActive(true);
-        //var level = levels[levelIndex].GetComponent<Level>().GetLevelData;
-        //GameManager.Instance.SetPlayerSettings(level);
-        //StateManager.Instance.ChangeState(GameStateEnum.Playing);
+        yield return UnloadLevel();
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+
+        // Esperar hasta que la escena esté completamente cargada
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+
+        currentlyLoadedScene = sceneName;
+
+        // Obtener datos del nivel actual (si hay un LevelData asociado)
+        Level currentLevel = FindObjectOfType<Level>();
+        if (currentLevel != null)
+        {
+            currentLevelData = currentLevel.GetLevelData;
+            GameManager.Instance.SetPlayerSettings(currentLevelData);
+        }
+
+        // Cambiar al estado Playing
+        StateManager.Instance.ChangeState(GameStateEnum.Playing);
+
     }
 
+    public IEnumerator UnloadLevel()
+    {
+        if (!string.IsNullOrEmpty(currentlyLoadedScene) && levels.Contains(currentlyLoadedScene))
+        {
+            AsyncOperation unloadOperation = SceneManager.UnloadSceneAsync(currentlyLoadedScene);
+            while (!unloadOperation.isDone)
+            {
+                yield return null;
+            }
+
+            // Limpiar la referencia a la escena cargada
+            currentlyLoadedScene = null;
+        }
+    }
     public void LoadNextLevel()
     {
         currentLevelIndex++;
 
-        if (currentLevelIndex == levels.Count)
+        if (currentLevelIndex >= levels.Count)
         {
+            // Si no hay más niveles, cambiar a GameOver
             StateManager.Instance.ChangeState(GameStateEnum.GameOver);
         }
         else
         {
-            DisableAllLevels(); //Desactivamos todos los niveles para evitar errores
-            EnableLevel(currentLevelIndex); //Habilitamos el siguiente index
+            
+            LoadLevel(currentLevelIndex);
         }
     }
 
-    
+    public void UnloadCurrentLevelFromUI()
+    {
+        // Método para interactuar con botones de UI
+        StartCoroutine(UnloadLevel());
+    }
+
+
 }
