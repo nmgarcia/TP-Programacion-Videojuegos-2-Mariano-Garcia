@@ -62,6 +62,7 @@ public class LevelManager : MonoBehaviour
 
         // Cargar la escena del nivel
         StartCoroutine(LoadLevelCoroutine(levels[levelIndex]));
+        
     }
 
     private IEnumerator LoadLevelCoroutine(string sceneName)
@@ -116,16 +117,14 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            
+            SaveManager.Instance.SetInt(PlayerPrefsEnum.LevelReached, currentLevelIndex);
+            SaveManager.Instance.Save();
             LoadLevel(currentLevelIndex);
         }
     }
 
     public void UnloadCurrentLevelFromUI()
     {
-        // Método para interactuar con botones de UI
         StartCoroutine(UnloadLevel());
     }
-
-
 }

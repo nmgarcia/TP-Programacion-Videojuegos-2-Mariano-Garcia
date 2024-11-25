@@ -16,4 +16,4 @@ MonoBehaviour:
   LevelName: Level2
   IsLastLevel: 1
   PlayerScale: 1.25
-  PlayerPosition: {x: -5, y: -3.3}
+  PlayerPosition: {x: -8, y: -1.25}

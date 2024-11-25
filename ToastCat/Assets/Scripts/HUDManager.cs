@@ -11,6 +11,7 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private GameObject MainMenu;
     [SerializeField] private GameObject LevelMenu;
     [SerializeField] private GameObject GameUI;
+    [SerializeField] private List<GameObject> LevelButtons;
 
     private void Awake()
     {
@@ -48,11 +49,27 @@ public class HUDManager : MonoBehaviour
                 break;
             case GameStateEnum.LevelMenu:
                 LevelMenu.SetActive(true);
+                EnableLevelButtons();
                 break;
             case GameStateEnum.GameOver:
                 WinText.SetActive(true);
                 GameUI.SetActive(true);
                 break;
+        }
+    }
+
+    private void EnableLevelButtons()
+    {
+        int levelsEnabled = SaveManager.Instance.GetInt(PlayerPrefsEnum.LevelReached,0);
+
+        for(int i = 0; i <= levelsEnabled; i++)
+        {
+            LevelButtons[i].SetActive(true);
+        }
+
+        for(int i = LevelButtons.Count-1; i > levelsEnabled ; i--)
+        {
+            LevelButtons[i].SetActive(false);
         }
     }
 

@@ -9,15 +9,5 @@ public class Level : MonoBehaviour
     [SerializeField] private Checkpoint checkpoint;
     public LevelData GetLevelData=>levelData;
     public Checkpoint GetCheckpoint =>checkpoint;
-    public bool IsActive => isActive;
-
-    private void OnEnable()
-    {
-        //StateManager.Instance.ChangeState(GameStateEnum.Playing);
-        isActive = true;
-    }
-    private void OnDisable()
-    {
-        isActive = false;
-    }
+   
 }
