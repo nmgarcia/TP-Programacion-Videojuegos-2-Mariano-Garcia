@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
         player = FindObjectOfType<Player>();
         player.transform.localScale = new Vector3(levelData.PlayerScale, levelData.PlayerScale, 0);
         player.transform.position = playerPosition = levelData.PlayerPosition;
+        changeGravity = player.GetComponent<ChangeGravity>();
         changeGravity.ResetGravity();
     }
 }
