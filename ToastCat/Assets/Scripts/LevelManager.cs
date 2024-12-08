@@ -61,7 +61,8 @@ public class LevelManager : MonoBehaviour
         }
 
         // Cargar la escena del nivel
-        StartCoroutine(LoadLevelCoroutine(levels[levelIndex]));
+        if(levels[levelIndex] != SceneManager.GetActiveScene().name)
+            StartCoroutine(LoadLevelCoroutine(levels[levelIndex]));
         
     }
 
@@ -85,10 +86,12 @@ public class LevelManager : MonoBehaviour
         {
             currentLevelData = currentLevel.GetLevelData;
             GameManager.Instance.SetPlayerSettings(currentLevelData);
+            currentLevelIndex = currentLevelData.Index;
         }
 
         // Cambiar al estado Playing
         StateManager.Instance.ChangeState(GameStateEnum.Playing);
+        
 
     }
 
